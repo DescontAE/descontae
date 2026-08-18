@@ -12,9 +12,9 @@ export async function GET(request: Request) {
     );
   }
 
-  const clientId = process.env.MERCADO_LIVRE_CLIENT_ID;
-  const clientSecret = process.env.MERCADO_LIVRE_CLIENT_SECRET;
-  const redirectUri = process.env.MERCADO_LIVRE_REDIRECT_URI;
+  const clientId = process.env.ID_DO_CLIENTE_MERCADO_LIVRE;
+const clientSecret = process.env.SEGREDO_DO_CLIENTE_MERCADOLIVRE;
+const redirectUri = process.env.MERCADO_LIVRE_REDIRECT_URI;
 
   if (!clientId || !clientSecret || !redirectUri) {
     return NextResponse.json(
