@@ -1,65 +1,118 @@
-import Image from "next/image";
+const ofertas = [
+  {
+    produto: "Smartphone Samsung Galaxy",
+    preco: "R$ 899,90",
+    desconto: "32% OFF",
+    loja: "Mercado Livre",
+  },
+  {
+    produto: "Fone Bluetooth JBL",
+    preco: "R$ 149,90",
+    desconto: "25% OFF",
+    loja: "Mercado Livre",
+  },
+  {
+    produto: "Smart TV 50 polegadas",
+    preco: "R$ 1.899,00",
+    desconto: "28% OFF",
+    loja: "Mercado Livre",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-zinc-950 text-white">
+      <header className="border-b border-zinc-800 bg-zinc-950">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+          <div>
+            <h1 className="text-2xl font-bold">
+              Descont<span className="text-green-400">AE</span>
+            </h1>
+            <p className="text-sm text-zinc-400">
+              Central automática de ofertas
+            </p>
+          </div>
+
+          <div className="rounded-full bg-green-500/10 px-4 py-2 text-sm text-green-400">
+            Sistema online
+          </div>
+        </div>
+      </header>
+
+      <section className="mx-auto max-w-6xl px-6 py-12">
+        <div className="mb-10">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-green-400">
+            Automação de ofertas
+          </p>
+
+          <h2 className="max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
+            Encontre as melhores promoções automaticamente.
+          </h2>
+
+          <p className="mt-5 max-w-2xl text-lg text-zinc-400">
+            O DescontAE foi criado para encontrar ofertas, analisar descontos,
+            gerar links e facilitar a divulgação dos produtos.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mb-10 grid gap-5 md:grid-cols-3">
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <p className="text-sm text-zinc-400">Ofertas encontradas</p>
+            <p className="mt-2 text-3xl font-bold">0</p>
+          </div>
+
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <p className="text-sm text-zinc-400">Links gerados</p>
+            <p className="mt-2 text-3xl font-bold">0</p>
+          </div>
+
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-6">
+            <p className="text-sm text-zinc-400">Publicações</p>
+            <p className="mt-2 text-3xl font-bold">0</p>
+          </div>
         </div>
-      </main>
-    </div>
+
+        <div className="mb-5 flex items-center justify-between">
+          <h3 className="text-2xl font-bold">Ofertas em destaque</h3>
+
+          <button className="rounded-xl bg-green-500 px-5 py-3 font-semibold text-black hover:bg-green-400">
+            Buscar ofertas
+          </button>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-3">
+          {ofertas.map((oferta) => (
+            <div
+              key={oferta.produto}
+              className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5"
+            >
+              <div className="mb-5 flex h-40 items-center justify-center rounded-xl bg-zinc-800 text-zinc-500">
+                Produto
+              </div>
+
+              <div className="mb-3 inline-block rounded-full bg-green-500/10 px-3 py-1 text-xs font-bold text-green-400">
+                {oferta.desconto}
+              </div>
+
+              <h4 className="font-semibold">{oferta.produto}</h4>
+
+              <p className="mt-3 text-2xl font-bold">{oferta.preco}</p>
+
+              <p className="mt-1 text-sm text-zinc-400">
+                Loja: {oferta.loja}
+              </p>
+
+              <button className="mt-5 w-full rounded-xl border border-zinc-700 px-4 py-3 font-semibold hover:bg-zinc-800">
+                Ver oferta
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer className="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
+        DescontAE • Sistema de automação de ofertas
+      </footer>
+    </main>
   );
 }
