@@ -33,9 +33,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="rounded-full bg-green-500/10 px-4 py-2 text-sm text-green-400">
-            Sistema online
-          </div>
+          <a
+  href="/api/mercadolivre/login"
+  className="rounded-xl bg-green-500 px-4 py-2 text-sm font-semibold text-black hover:bg-green-400"
+>
+  Conectar Mercado Livre
+</a>
         </div>
       </header>
 
