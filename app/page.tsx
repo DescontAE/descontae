@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 const ofertas = [
   {
     produto: "Smartphone Samsung Galaxy",
@@ -19,7 +21,46 @@ const ofertas = [
   },
 ];
 
-export default function Home() {
+type ContaMercadoLivre = {
+  nickname: string;
+  first_name?: string;
+  last_name?: string;
+  logo?: string | null;
+};
+
+async function buscarContaConectada(): Promise<ContaMercadoLivre | null> {
+  const accessToken = cookies().get("ml_access_token")?.value;
+
+  if (!accessToken) {
+    return null;
+  }
+
+  try {
+    const response = await fetch("https://api.mercadolibre.com/users/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+
+    return {
+      nickname: data.nickname,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      logo: data.logo ?? null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export default async function Home() {
+  const conta = await buscarContaConectada();
+
   return (
     <main className="min-h-screen bg-zinc-950 text-white">
       <header className="border-b border-zinc-800 bg-zinc-950">
@@ -33,12 +74,36 @@ export default function Home() {
             </p>
           </div>
 
-          <a
-  href="/api/mercadolivre/login"
-  className="rounded-xl bg-green-500 px-4 py-2 text-sm font-semibold text-black hover:bg-green-400"
->
-  Conectar Mercado Livre
-</a>
+          {conta ? (
+            <div className="flex items-center gap-3 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2">
+              {conta.logo ? (
+                <img
+                  src={conta.logo}
+                  alt={conta.nickname}
+                  className="h-8 w-8 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500 text-sm font-bold text-black">
+                  {conta.nickname?.charAt(0).toUpperCase() ?? "M"}
+                </div>
+              )}
+              <div className="text-sm">
+                <p className="font-semibold text-green-400">
+                  {conta.first_name
+                    ? `${conta.first_name} ${conta.last_name ?? ""}`.trim()
+                    : conta.nickname}
+                </p>
+                <p className="text-xs text-zinc-400">Conectado</p>
+              </div>
+            </div>
+          ) : (
+            
+              href="/api/mercadolivre/login"
+              className="rounded-xl bg-green-500 px-4 py-2 text-sm font-semibold text-black hover:bg-green-400"
+            >
+              Conectar Mercado Livre
+            </a>
+          )}
         </div>
       </header>
 
