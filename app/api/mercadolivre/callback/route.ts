@@ -155,17 +155,10 @@ export async function GET(request: Request) {
   // guardamos em cookies httpOnly seguros. Troque este bloco por uma
   // chamada ao seu banco assim que tiver isso pronto.
   // ------------------------------------------------------------------
-  const responseBody = {
-    sucesso: true,
-    mensagem: "Mercado Livre conectado com sucesso!",
-    usuario_id: tokenData.user_id,
-    token_recebido: !!tokenData.access_token,
-    refresh_token_recebido: !!tokenData.refresh_token,
-    expira_em: tokenData.expires_in,
-    escopo: tokenData.scope,
-  };
 
-  const res = NextResponse.json(responseBody);
+
+  const homeUrl = new URL("/?ml=conectado", request.url);
+  const res = NextResponse.redirect(homeUrl);
 
   res.cookies.set("ml_access_token", tokenData.access_token, {
     httpOnly: true,
