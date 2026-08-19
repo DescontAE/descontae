@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const clientId = process.env.MERCADO_LIVRE_CLIENT_ID;
+  const clientId = process.env.ID_DO_CLIENTE_MERCADO_LIVRE;
   const redirectUri = process.env.MERCADO_LIVRE_REDIRECT_URI;
 
   if (!clientId || !redirectUri) {
